@@ -1,0 +1,18 @@
+#gameboard{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    height:100px;
+}
+.grid-content{
+    border:solid black 2px;
+}
+button{
+    display:block;
+}
+.player1{
+    display:block;
+    float:left;
+}
+.player2{
+    float:right;
+}
