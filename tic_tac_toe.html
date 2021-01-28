@@ -6,20 +6,28 @@
 	<link href="tic_tac_toe.css" rel="stylesheet">
 </head>
 <body>
-
-    <div class="player1">Player1</div>
+<div id="all">
+    <div id="button1">
+    <div class="player1">Player 1</div>
     <div class="player1">X</div>
     <button type="button" id="human1" class="player1">Human</button>
     <button type="button" id="computer1" class="player1">Computer</button>
-    <div class="player2">Player2</div>
-    <div class="player2">O</div>
+</div>
+
+    <div id="button2">
+        <div class="player2">Player 2</div>
+        <div class="player2">O</div>
     <button type="button" id="human2" class="player2">Human</button>
     <button type="button" id="computer2" class="player2">Computer</button>
-    <div id="gameboard"></div>
-    <button type="button" id="restart">Restart</button>
-
     </div>
-
+    <div id="gridContainer">
+    <div id="gameboard"></div>
+    </div>
+    <div id="restart">
+    <button type="button" id="restartButton">Restart</button>
+    </div>
+    <div id="winner"></div>
+</div>
     <script src="tic_tac_toe.js"></script>
 </body>
 

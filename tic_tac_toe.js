@@ -1,8 +1,9 @@
-// let tic_tac_toe=(function(){
-    playerArray=new Array(2);
-    counter=1;
+//let tic_tac_toe=(function(){
+    
+    
     const gameBoard= {
         gameboard: new Array(9),
+        playerArray: new Array(2),
 
             cacheDom: function(){
             this.grid=document.getElementById("gameboard");
@@ -11,13 +12,13 @@
             this.computerButton1=document.getElementById("computer1")
             this.computerButton2=document.getElementById("computer2")
             this.restartButton=document.getElementById("restart")
+            this.winner=document.getElementById("winner")
             },
 
         init: function(){
             
             for(let i=0;i<gameBoard.gameboard.length;i++){
                 let newDiv=document.createElement("div");
-                newDiv.textContent=gameBoard.gameboard[i];
                 this.grid.appendChild(newDiv)
                 newDiv.classList.add("grid-content")
                 newDiv.setAttribute("data-index",i); 
@@ -27,7 +28,7 @@
             this.gridContent=document.querySelectorAll(".grid-content")
             this.gridContent.forEach(item => {
                 item.addEventListener("click", item=> {
-                    if (playerArray[0]==undefined || playerArray[1]==undefined){
+                    if (this.playerArray[0]==undefined || this.playerArray[1]==undefined){
                         alert("Choose Player")
                         }
                         else{
@@ -47,51 +48,60 @@
             
             gameBoard.humanButton1.addEventListener("click", event =>{
             let x = prompt("Put in your Name")
-            player1 = player(x,1, "x", true);
-            player2= player (2)
-            playerArray[0]=(player1);
-            this.disableButtons();
+            if (x===null){
+                let player1=player("No one",1,"x",true)
+                this.playerArray[0]=(player1);
+                this.disableButtons1();
+            }
+            else{
+            let player1 = player(x,1, "x", true);
+            this.playerArray[0]=(player1);
+            this.disableButtons1();
+            }
             });
         },
         setComputerButton1: function(){
             
             gameBoard.computerButton1.addEventListener("click", event =>{
-            player1 = player(1, "x", false);
-            player2= player (2)
-            playerArray[0]=(player1);
-            this.disableButtons();
+            player1 = player("Computer",1, "x", false);
+            this.playerArray[0]=(player1);
+            this.disableButtons1();
             });
         },
         setHumanButton2: function(){
             
             gameBoard.humanButton2.addEventListener("click", event =>{
-            let x = prompt("Put in your Name")     
+            let x = prompt("Put in your Name") 
+            if (x===null){
+                player2=player("No one",2,"o",true)
+                this.playerArray[1]=(player2);
+                this.disableButtons2();
+            }
+            else{
             player2 = player(x,2, "o", true);
-            player1=player(1)
-            playerArray[1]=(player2);
-            this.disableButtons();
+            this.playerArray[1]=(player2);
+            this.disableButtons2();
+            }
         });
         },
         
         setComputerButton2: function(){
             
             gameBoard.computerButton2.addEventListener("click", event =>{
-            player2 = player(2, "o", false);
+            player2 = player("computer",2, "o", false);
             player1=player(1)
-            playerArray[1]=(player2);
-            this.disableButtons();
+            this.playerArray[1]=(player2);
+            this.disableButtons2();
             });
         },
-        disableButtons: function(){
-            if (player1.marker==="x"){
+        disableButtons1: function(){
                 gameBoard.humanButton1.disabled=true;
                 gameBoard.computerButton1.disabled=true;
-            }
-            else{
-                gameBoard.humanButton2.disabled=true;
-                gameBoard.computerButton2.disabled=true;
-            }
             },
+        disableButtons2: function(){
+        gameBoard.humanButton2.disabled=true;
+        gameBoard.computerButton2.disabled=true;
+        },
         restart: function(){
                 this.restartButton.addEventListener("click", event=>{
                     this.gridContent.forEach(item=>{
@@ -99,8 +109,10 @@
                         for(let i=0;i<game.library.length;i++){
                             game.library[i]=undefined;
                         }
-                        playerArray=new Array(2);
+                        this.playerArray=new Array(2);
                         this.enableButtons();
+                        gameBoard.winner.textContent=""
+                        gameBoard.winner.style.visibility="hidden"
                     })
                 } )
             },
@@ -115,7 +127,6 @@
         gameBoard.cacheDom();
         gameBoard.init();
         gameBoard.addFunctionalityToGrid();
-        console.log(gameBoard.humanButton1)
         gameBoard.setHumanButton1();
         gameBoard.setHumanButton2();
         gameBoard.setComputerButton1();
@@ -129,20 +140,21 @@
         name,
         number,
         marker, 
-        human       
+        human
         });
             
         const game= {
             library: new Array(9),
+            counter: 1,
 
             chooseMarker: function(x){
-                if (counter===1){
+                if (this.counter===1){
                     x.textContent=("X")
-                    counter=0;
+                    this.counter=0;
                 }
                 else{
                     x.textContent=("O")
-                    counter=1;
+                    this.counter=1;
                 }
             },
         cachegrid: function(x){
@@ -160,7 +172,8 @@
             this.library[0]==="X" && this.library[4]==="X" && this.library[8]==="X" ||   
             this.library[2]==="X" && this.library[4]==="X" && this.library[6]==="X" 
             ){
-                alert(playerArray[0].name+" Wins!")
+                gameBoard.winner.textContent=gameBoard.playerArray[0].name+" Wins!"
+                gameBoard.winner.style.visibility="visible"
             }
             else if
             (this.library[0]==="O" && this.library[1]==="O" && this.library[2]==="O" || 
@@ -172,7 +185,8 @@
             this.library[0]==="O" && this.library[4]==="O" && this.library[8]==="O" ||   
             this.library[2]==="O" && this.library[4]==="O" && this.library[6]==="O"
             ){
-                alert(playerArray[1].name+" Wins!")
+                gameBoard.winner.textContent=gameBoard.playerArray[0].name+" Wins!";
+                gameBoard.winner.style.visibility="visible";
             }
             else {
                 for (let i=0;i<this.library.length;i++){
@@ -180,8 +194,8 @@
                         return
                         }
                     }
-                        alert("Draw")
-                    
+                    gameBoard.winner.textContent="Draw"
+                    gameBoard.winner.style.visibility="visible"
                 }
              
             }
@@ -192,4 +206,4 @@
 
     //return (gameBoard)
 
-// })();
+ //})();
