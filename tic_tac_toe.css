@@ -13,7 +13,7 @@
     width:200px;
     grid-row-gap:2.5px;
     grid-column-gap:2.5px;
-    margin-top:10px;
+    margin-top:30px;
     justify-content:center;
 }
 .grid-content{
@@ -49,12 +49,12 @@ font-size:20px;
 #button1{
     display:inline-block;
     width:49.5%;
-    text-align:left;
+    text-align:right;
     }   
 #button2{
     display:inline-block;
     width:50%;
-    text-align:right;
+    text-align:left;
 }   
 #restart{
     margin-top:20px;
@@ -72,4 +72,15 @@ font-size:20px;
 }
 #human2{
     margin-left:20px;
+}
+img{
+    max-width:60px;
+    max-height:60px;
+}
+#computer2{
+    margin-right:20px;
+}
+#header{
+    text-align:center;
+    margin-bottom:50px;
 }

@@ -1,14 +1,19 @@
 //let tic_tac_toe=(function(){
     
-    
     const gameBoard= {
         gameboard: new Array(9),
         playerArray: new Array(2),
+        pictureArray: [],
         savePictures: function(){
+            for (let i=0; i<5; i++){
             this.tyrion=document.createElement("img")
             this.tyrion.src="tyrion.jpg"
             this.jon=document.createElement("img")
             this.jon.src="Jon.png"
+            this.pictureArray.push(this.jon)
+            this.pictureArray.push(this.tyrion)
+                
+           }
         }
         ,
 
@@ -54,14 +59,14 @@
         setHumanButton1: function(){
             
             gameBoard.humanButton1.addEventListener("click", event =>{
-            let x = prompt("Put in your Name")
+            //let x = prompt("Put in your Name")
             if (x===null){
-                let player1=player("No one",1,"x",true)
+                let player1=player("No one",0,"X",true,this.jon)
                 this.playerArray[0]=(player1);
                 this.disableButtons1();
             }
             else{
-            let player1 = player(x,1, "x", true);
+            let player1 = player(x,0,"X" , true,this.jon);
             this.playerArray[0]=(player1);
             this.disableButtons1();
             }
@@ -70,7 +75,7 @@
         setComputerButton1: function(){
             
             gameBoard.computerButton1.addEventListener("click", event =>{
-            player1 = player("Computer",1, "x", false);
+            player1 = player("Computer",0, "X", false,this.jon);
             this.playerArray[0]=(player1);
             this.disableButtons1();
             });
@@ -78,14 +83,14 @@
         setHumanButton2: function(){
             
             gameBoard.humanButton2.addEventListener("click", event =>{
-            let x = prompt("Put in your Name") 
+            //let x = prompt("Put in your Name") 
             if (x===null){
-                player2=player("No one",2,"o",true)
+                player2=player("No one",1,"O",true,this.tyrion)
                 this.playerArray[1]=(player2);
                 this.disableButtons2();
             }
             else{
-            player2 = player(x,2, "o", true);
+            player2 = player(x,1, "O", true,this.tyrion);
             this.playerArray[1]=(player2);
             this.disableButtons2();
             }
@@ -95,7 +100,7 @@
         setComputerButton2: function(){
             
             gameBoard.computerButton2.addEventListener("click", event =>{
-            player2 = player("computer",2, "o", false);
+            player2 = player("computer",1, "O", false,this.tyrion);
             player1=player(1)
             this.playerArray[1]=(player2);
             this.disableButtons2();
@@ -144,30 +149,44 @@
 
     
 
-    const player = (name,number,marker,human)=> ({
+    const player = (name,number,marker,human,image)=> ({
         name,
         number,
         marker, 
-        human
+        human,
+        image
         });
             
         const game= {
             library: new Array(9),
             counter: 1,
 
+
             chooseMarker: function(x){
                 if (this.counter===1){
-                    x.textContent=("X")
+                    
+                    x.appendChild(gameBoard.pictureArray[gameBoard.playerArray[0].number])
                     this.counter=0;
+                    gameBoard.playerArray[0].number=gameBoard.playerArray[0].number+2
+
+
                 }
                 else{
-                    x.textContent=("O")
+                    x.appendChild(gameBoard.pictureArray[gameBoard.playerArray[1].number])
                     this.counter=1;
+                    gameBoard.playerArray[1].number=gameBoard.playerArray[1].number+2
+
                 }
             },
         cachegrid: function(x){
-            this.library[x.dataset.index]=x.textContent
-            console.log(game.library)
+            if (this.counter===1){
+            this.library[x.dataset.index]=gameBoard.playerArray[0].marker
+
+            }
+            else{
+            this.library[x.dataset.index]=gameBoard.playerArray[1].marker
+
+            }
         },
         checkWinner: function(){
             if
@@ -180,7 +199,7 @@
             this.library[0]==="X" && this.library[4]==="X" && this.library[8]==="X" ||   
             this.library[2]==="X" && this.library[4]==="X" && this.library[6]==="X" 
             ){
-                gameBoard.winner.textContent=gameBoard.playerArray[0].name+" Wins!"
+                gameBoard.winner.textContent="Jon Snow Wins!"
                 gameBoard.winner.style.visibility="visible"
             }
             else if
@@ -193,7 +212,7 @@
             this.library[0]==="O" && this.library[4]==="O" && this.library[8]==="O" ||   
             this.library[2]==="O" && this.library[4]==="O" && this.library[6]==="O"
             ){
-                gameBoard.winner.textContent=gameBoard.playerArray[0].name+" Wins!";
+                gameBoard.winner.textContent="Tyrion Lannister Wins!";
                 gameBoard.winner.style.visibility="visible";
             }
             else {
