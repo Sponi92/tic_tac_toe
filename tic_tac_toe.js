@@ -193,7 +193,7 @@
             this.library[0]==="O" && this.library[4]==="O" && this.library[8]==="O" ||   
             this.library[2]==="O" && this.library[4]==="O" && this.library[6]==="O"
             ){
-                gameBoard.winner.textContent=gameBoard.playerArray[0].name+" Wins!";
+                gameBoard.winner.textContent=gameBoard.playerArray[1].name+" Wins!";
                 gameBoard.winner.style.visibility="visible";
             }
             else {
