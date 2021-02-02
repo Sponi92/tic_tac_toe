@@ -11,6 +11,8 @@
             this.tyrion.src="tyrion.jpg"
             this.jon=document.createElement("img")
             this.jon.src="Jon.png"
+            this.jon.alt="X"
+            this.tyrion.alt="O"
             this.pictureArray.push(this.jon)
             this.pictureArray.push(this.tyrion)
                 
@@ -57,9 +59,6 @@
                 }   
 
                     }
-                else{
-                    return
-                } 
             }        
                 })
             });
@@ -81,6 +80,8 @@
             player2 = player("Tyrion Lannister",1, "O", true,this.tyrion);
             this.playerArray[1]=(player2);
             this.disableButtons2();
+            game.playerCount=1;
+            game.pictureCount=2;
         });
         },
 
@@ -90,6 +91,7 @@
             player1 = player("Jon Snow",2, "X", false,this.jon);
             this.playerArray[0]=(player1);
             this.disableButtons1();
+            this.computerButton2.disabled=true;
             });
         },
         
@@ -100,6 +102,7 @@
             player1=player(1)
             this.playerArray[1]=(player2);
             this.disableButtons2();
+            this.computerButton1.disabled=true;
             });
         },
         disableButtons1: function(){
@@ -162,6 +165,7 @@
             playerCount: 0,
             pictureCount: 1,
             chooseMarkerHuman: function(x){
+
                 if (this.playerCount===0){
                     this.pictureCount=this.pictureCount-1
                     x.appendChild(gameBoard.pictureArray[this.pictureCount])
