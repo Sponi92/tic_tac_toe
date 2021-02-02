@@ -1,4 +1,4 @@
-//let tic_tac_toe=(function(){
+let tic_tac_toe=(function(){
     
     const gameBoard= {
         gameboard: new Array(9),
@@ -6,7 +6,7 @@
         pictureArray: [],
         clickCount: 0,
         savePictures: function(){
-            for (let i=0; i<5; i++){
+            for (let i=0; i<6; i++){
             this.tyrion=document.createElement("img")
             this.tyrion.src="tyrion.jpg"
             this.jon=document.createElement("img")
@@ -70,7 +70,7 @@
             let player1 = player("Jon Snow ",0,"X" , true,this.jon);
             this.playerArray[0]=(player1);
             this.disableButtons1();
-
+            this.alertStarter();
             });
         },
 
@@ -82,6 +82,7 @@
             this.disableButtons2();
             game.playerCount=1;
             game.pictureCount=2;
+            this.alertStarter();
         });
         },
 
@@ -92,6 +93,7 @@
             this.playerArray[0]=(player1);
             this.disableButtons1();
             this.computerButton2.disabled=true;
+            this.alertStarter();
             });
         },
         
@@ -103,6 +105,7 @@
             this.playerArray[1]=(player2);
             this.disableButtons2();
             this.computerButton1.disabled=true;
+            this.alertStarter();
             });
         },
         disableButtons1: function(){
@@ -136,6 +139,19 @@
             gameBoard.computerButton1.disabled=false;
             gameBoard.humanButton2.disabled=false;
             gameBoard.computerButton2.disabled=false;
+        },
+        alertStarter: function(){
+            if (this.playerArray[0]!=undefined && this.playerArray[1]!=undefined){
+                if (game.playerCount===0){
+                    alert("Jon Starts!")
+                }
+                else{
+                    alert("Tyrion Starts!")
+                }
+            }
+            else {
+                return;
+            }
         }
         };
     
@@ -164,6 +180,9 @@
             library: new Array(9),
             playerCount: 0,
             pictureCount: 1,
+
+            //add the pictures from the Array to the Gameboard
+
             chooseMarkerHuman: function(x){
 
                 if (this.playerCount===0){
@@ -204,6 +223,8 @@
                     return Math.floor(Math.random() * Math.floor(9));
             },
 
+            //add the marker to the library to check the winner
+
         cachegridHuman: function(x){
             if (this.playerCount===0){
             this.library[x.dataset.index]=gameBoard.playerArray[0].marker
@@ -240,7 +261,6 @@
             ){
                 gameBoard.winner.textContent=gameBoard.playerArray[0].name+ " Wins!"
                 gameBoard.winner.style.visibility="visible"
-                this.counter=0
             }
             else if
             (this.library[0]==="O" && this.library[1]==="O" && this.library[2]==="O" || 
@@ -254,7 +274,6 @@
             ){
                 gameBoard.winner.textContent=gameBoard.playerArray[1].name+ " Wins!";
                 gameBoard.winner.style.visibility="visible";
-                this.counter=1;
             }
             else {
                 for (let i=0;i<this.library.length;i++){
@@ -273,6 +292,6 @@
         
 
 
-    //return (gameBoard)
+    return (gameBoard)
 
- //})();
+ })();
